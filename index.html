@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Phaser</title>
+    <!--<base href="../">-->
+    <script type='text/javascript' src='phaser/build/phaser.js'></script>
+    <script type='text/javascript' src='build/Main.js'></script>
+    <script type="text/javascript" src="build/Block.js"></script>
+    <script type="text/javascript" src="build/Player.js"></script>
+    <script type="text/javascript" src="build/PlayerController.js"></script>
+    <script type="text/javascript" src="build/ObstacleManager.js"></script>
+    <script type="text/javascript" src="build/Obstacles/FixedObstacle.js"></script>
+    <script type="text/javascript" src="build/Obstacles/NeonSign.js"></script>
+    <!--<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0" />-->
+    <script type='text/javascript'>
+        (function () {
+            var main = new Main;
+
+            var game = new Phaser.Game(800,600, Phaser.CANVAS,'', main);
+        })();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

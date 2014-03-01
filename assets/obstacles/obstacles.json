@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "Neon1.png",
+	"frame": {"x":2,"y":2,"w":192,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":190},
+	"sourceSize": {"w":192,"h":190}
+},
+{
+	"filename": "Neon2.png",
+	"frame": {"x":2,"y":194,"w":192,"h":194},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":194},
+	"sourceSize": {"w":192,"h":194}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "obstacles.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:43f1466a7eca6c0fda7e7071846875a0$"
+}
+}
