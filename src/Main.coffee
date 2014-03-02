@@ -9,10 +9,21 @@ class Main extends Phaser.State
         @game.load.spritesheet('block', 'assets/Block.png', 128, 80);
         @game.load.image('logo2', 'assets/Logo.png')
         @game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json')
-        @game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 188, 337)
+        @game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201)
+
+        @game.load.script('filter', 'filters/Fire.js');
+
 
     create: ()->
-        @game.add.sprite(0,0,'backdrop')
+        backdrop = @game.add.sprite(0,0,'backdrop')
+
+        # Backdrop?!
+        bg = @game.add.sprite(0,0)
+        bg.width = 600
+        bg.height = 700
+        @filter = @game.add.filter('Fire', 600, 700)
+        @filter.alpha = 0.0
+        #bg.filters = [@filter]
 
         @player = new Player(@game)
 
@@ -53,6 +64,7 @@ class Main extends Phaser.State
 
     update: ()->
         @game.physics.collide(@player, @obstacles, @die)
+        @filter.update()
 
 
 
@@ -71,8 +83,7 @@ class Main extends Phaser.State
 
     die: ()=>
         @player.destroy()
-
-        @game.pause()
+        # @game.pause()
 
 
 

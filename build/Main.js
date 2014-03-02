@@ -19,13 +19,19 @@ Main = (function(_super) {
     this.game.load.spritesheet('block', 'assets/Block.png', 128, 80);
     this.game.load.image('logo2', 'assets/Logo.png');
     this.game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json');
-    return this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 188, 337);
+    this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201);
+    return this.game.load.script('filter', 'filters/Fire.js');
   };
 
   Main.prototype.create = function() {
-    var block_placement_y, i, init_blocks, logo, _i, _ref,
+    var backdrop, bg, block_placement_y, i, init_blocks, logo, _i, _ref,
       _this = this;
-    this.game.add.sprite(0, 0, 'backdrop');
+    backdrop = this.game.add.sprite(0, 0, 'backdrop');
+    bg = this.game.add.sprite(0, 0);
+    bg.width = 600;
+    bg.height = 700;
+    this.filter = this.game.add.filter('Fire', 600, 700);
+    this.filter.alpha = 0.0;
     this.player = new Player(this.game);
     this.game.add.existing(this.player);
     this.game.player = this.player;
@@ -53,7 +59,8 @@ Main = (function(_super) {
   };
 
   Main.prototype.update = function() {
-    return this.game.physics.collide(this.player, this.obstacles, this.die);
+    this.game.physics.collide(this.player, this.obstacles, this.die);
+    return this.filter.update();
   };
 
   Main.prototype.increaseSpeed = function() {
@@ -72,8 +79,7 @@ Main = (function(_super) {
   };
 
   Main.prototype.die = function() {
-    this.player.destroy();
-    return this.game.pause();
+    return this.player.destroy();
   };
 
   return Main;

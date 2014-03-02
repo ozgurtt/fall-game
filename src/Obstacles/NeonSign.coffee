@@ -9,6 +9,7 @@ class NeonSign extends FixedObstacle
         @body.setRectangle(@width-offset, @height-offset, offset/2, offset/2)
 
 
+
     update: ()->
         dist = @game.physics.distanceBetween(@, @game.player)
         if dist < 150

@@ -21,12 +21,14 @@ class FixedObstacle extends Phaser.Sprite
 
     init: ()->
 
+
     adjustPlacement: ()->
         @anchor.setTo(0.5, 0.5)
         if @x < @game.world.width/2
             @x = @x+@width/2
         else
             @x = @x-@width/2
+
 
     getSheet: ()-> return 'obstacles'
 

@@ -4,7 +4,7 @@ class ObstacleManager extends Phaser.Group
 
     timers: false
     min_time: 700
-    max_time: 3000
+    max_time: 1000
 
     constructor: (args...)->
         super(args...)
@@ -39,7 +39,7 @@ class ObstacleManager extends Phaser.Group
         @initializeTimers()
 
 
-        if Math.random() > 0.5
+        if Math.random() > 0.5 && false
             ob = new NeonSign(@game)
         else
             ob = new NeonArrow(@game)
