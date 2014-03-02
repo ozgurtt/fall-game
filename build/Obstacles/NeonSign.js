@@ -27,7 +27,7 @@ NeonSign = (function(_super) {
   };
 
   NeonSign.prototype.getSheetFrames = function() {
-    return [0, 1];
+    return [0, 1, 2];
   };
 
   return NeonSign;

@@ -148,6 +148,7 @@
         <array>
             <filename>Falling-Kata.png</filename>
             <filename>TohaHeavy-Ind.png</filename>
+            <filename>Runner-Kata.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

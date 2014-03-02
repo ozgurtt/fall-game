@@ -17,6 +17,6 @@ class NeonSign extends FixedObstacle
 
 
     getSheetFrames : ()->
-        return [0..1]
+        return [0..2]
 
 

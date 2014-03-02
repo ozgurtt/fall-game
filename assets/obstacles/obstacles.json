@@ -9,8 +9,16 @@
 	"sourceSize": {"w":153,"h":400}
 },
 {
+	"filename": "Runner-Kata.png",
+	"frame": {"x":2,"y":404,"w":191,"h":385},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":191,"h":385},
+	"sourceSize": {"w":191,"h":385}
+},
+{
 	"filename": "TohaHeavy-Ind.png",
-	"frame": {"x":157,"y":2,"w":250,"h":145},
+	"frame": {"x":2,"y":791,"w":250,"h":145},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":145},
@@ -21,8 +29,8 @@
 	"version": "1.0",
 	"image": "obstacles.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":256,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4bdabc7d6fa03076b8b03f9052b9e6c6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:502d606d1790e57360101569d133c5bc$"
 }
 }

@@ -12,7 +12,7 @@ ObstacleManager = (function(_super) {
 
   ObstacleManager.prototype.min_time = 700;
 
-  ObstacleManager.prototype.max_time = 1000;
+  ObstacleManager.prototype.max_time = 2500;
 
   function ObstacleManager() {
     var args;
@@ -50,7 +50,7 @@ ObstacleManager = (function(_super) {
   ObstacleManager.prototype.spawnObstacle = function() {
     var ob;
     this.initializeTimers();
-    if (Math.random() > 0.5 && false) {
+    if (Math.random() > 0.25) {
       ob = new NeonSign(this.game);
     } else {
       ob = new NeonArrow(this.game);

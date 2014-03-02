@@ -2,7 +2,7 @@
 
 class PlayerController
 
-    movespeed: 450
+    movespeed: 900
 
 
     constructor: (@player, @game)->
@@ -13,11 +13,21 @@ class PlayerController
     update: ()->
 
         @player.body.velocity.x = 0
+        speed = @movespeed
 
-        if (@game.input.x < @player.x - 10) && @player.x > (Block.block_width+50)
-            @player.body.velocity.x = -1*@movespeed
+        if @game.input.x + 7 > @player.x && @game.input.x - 7 < @player.x
+            speed = 0
+        else if @game.input.x + 10 > @player.x && @game.input.x - 10 < @player.x
+            speed = .2*@movespeed
+        else if @game.input.x + 18 > @player.x && @game.input.x - 18 < @player.x
+            speed = .4*@movespeed
 
-        else if (@game.input.x > @player.x+10) && @player.x < (@game.world.width - Block.block_width - 50)
-            @player.body.velocity.x = @movespeed
+
+
+
+        if @game.input.x < @player.x && @player.x > (Block.block_width+50)
+            @player.body.velocity.x = -1*speed
+        else if (@game.input.x > @player.x) && @player.x < (@game.world.width - Block.block_width - 50)
+            @player.body.velocity.x = speed
 
 
