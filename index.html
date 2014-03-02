@@ -12,16 +12,30 @@
     <script type="text/javascript" src="build/ObstacleManager.js"></script>
     <script type="text/javascript" src="build/Obstacles/FixedObstacle.js"></script>
     <script type="text/javascript" src="build/Obstacles/NeonSign.js"></script>
+    <script type="text/javascript" src="build/Obstacles/NeonArrow.js"></script>
     <!--<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0" />-->
     <script type='text/javascript'>
+        var main, game;
         (function () {
-            var main = new Main;
+            main = new Main;
 
-            var game = new Phaser.Game(800,600, Phaser.CANVAS,'', main);
+            game = new Phaser.Game(600,700, Phaser.CANVAS,'canvas', main);
         })();
     </script>
+    <style type='text/css'>
+        #wrap {
+            width:600px;
+            margin:0px auto;
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
-
+    <div id='wrap'>
+        <div id='canvas'></div>
+    </div>
 </body>
 </html>

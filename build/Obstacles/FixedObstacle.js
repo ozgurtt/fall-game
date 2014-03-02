@@ -11,7 +11,7 @@ FixedObstacle = (function(_super) {
     this.game = game;
     frame = this.getRandomFrame();
     x = this.getSide();
-    FixedObstacle.__super__.constructor.call(this, this.game, x, this.game.world.height, this.getSheet(), frame);
+    FixedObstacle.__super__.constructor.call(this, this.game, x, this.game.world.height + 300, this.getSheet(), frame);
     this.adjustPlacement();
     this.body.velocity.y = this.game.speed;
     this.body.immovable = true;
@@ -23,7 +23,11 @@ FixedObstacle = (function(_super) {
 
   FixedObstacle.prototype.adjustPlacement = function() {
     this.anchor.setTo(0.5, 0.5);
-    return this.x = this.x + this.width / 2;
+    if (this.x < this.game.world.width / 2) {
+      return this.x = this.x + this.width / 2;
+    } else {
+      return this.x = this.x - this.width / 2;
+    }
   };
 
   FixedObstacle.prototype.getSheet = function() {
@@ -41,7 +45,7 @@ FixedObstacle = (function(_super) {
   };
 
   FixedObstacle.prototype.getSide = function() {
-    return this.game.math.getRandom([Block.block_width, this.game.world.width - Block.block_width]);
+    return this.game.math.getRandom([Block.block_width - 15, this.game.world.width - Block.block_width + 15]);
   };
 
   return FixedObstacle;

@@ -5,8 +5,12 @@ class FixedObstacle extends Phaser.Sprite
     constructor: (@game)->
         frame = @getRandomFrame()
         x = @getSide()
-        super(@game, x, @game.world.height, @getSheet(), frame)
+        super(@game, x, @game.world.height+300, @getSheet(), frame)
+        # @scale.x = @game.math.clamp(Math.random() * 1.3, 0.75, 1.3)
+        # @scale.y = @scale.x
+
         @adjustPlacement()
+
 
         @body.velocity.y = @game.speed
 
@@ -17,11 +21,12 @@ class FixedObstacle extends Phaser.Sprite
 
     init: ()->
 
-
-
     adjustPlacement: ()->
         @anchor.setTo(0.5, 0.5)
-        @x = @x+@width/2
+        if @x < @game.world.width/2
+            @x = @x+@width/2
+        else
+            @x = @x-@width/2
 
     getSheet: ()-> return 'obstacles'
 
@@ -37,4 +42,4 @@ class FixedObstacle extends Phaser.Sprite
 
 
     getSide: ()->
-        return @game.math.getRandom([Block.block_width, @game.world.width - Block.block_width])
+        return @game.math.getRandom([Block.block_width-15, @game.world.width - Block.block_width+15])

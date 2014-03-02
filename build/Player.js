@@ -21,8 +21,7 @@ Player = (function(_super) {
   }
 
   Player.prototype.getPower = function(power) {
-    this.power += power;
-    return console.log(this.power);
+    return this.power += power;
   };
 
   Player.prototype.update = function() {

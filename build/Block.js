@@ -11,17 +11,25 @@ Block = (function(_super) {
 
   Block.prototype.init_frame = null;
 
-  Block.block_height = 64;
+  Block.block_height = 80;
 
   Block.block_width = 128;
 
   Block.prototype.right_side = null;
 
+  Block.prototype.max_frame = 1;
+
   function Block(group, x, y, is_left) {
+    var _i, _ref, _results;
     if (is_left == null) {
       is_left = true;
     }
     this.onOut = __bind(this.onOut, this);
+    this.init_frame = group.game.math.getRandom((function() {
+      _results = [];
+      for (var _i = 0, _ref = this.max_frame; 0 <= _ref ? _i <= _ref : _i >= _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
+      return _results;
+    }).apply(this));
     Block.__super__.constructor.call(this, group.game, x, y, this.image_key, this.init_frame);
     group.add(this);
     this.is_left = is_left;
@@ -42,30 +50,34 @@ Block = (function(_super) {
   Block.prototype.init = function() {
     this.body.immovable = true;
     if (this.is_left) {
-      return this.events.onOutOfBounds.add(this.onOut);
+      this.events.onOutOfBounds.add(this.onOut);
     }
+    return this.body.velocity.y = this.game.speed;
   };
 
   Block.prototype.update = function() {
+    this._prevGameSpeed = this.game.speed;
     return this.body.velocity.y = this.game.speed;
   };
 
   Block.prototype.onOut = function() {
-    blk;
     var blk, ct, lst,
       _this = this;
+    blk = null;
+    ct = this.group.countLiving() - 1;
+    lst = this.group.getAt(ct);
     if (this.y < 0 && this.game.speed < 0) {
-      ct = this.group.countLiving() - 1;
-      lst = this.group.getAt(ct);
       blk = new Block(this.group, this.x, Math.floor(lst.y) + Block.block_height);
-    } else if (this.y > 0 && this.game.speed > 0) {
-      blk = new Block(this.group, this.x, Math.floor(this.group.getFirstAlive().y) - Block.block_height);
+    } else if (this.y >= this.game.world.height && this.game.speed > 0) {
+      blk = new Block(this.group, this.x, Math.floor(lst.y) - Block.block_height);
     }
     if (blk != null) {
-      blk.preUpdate();
-      blk.postUpdate();
-      blk.right_side.preUpdate();
-      blk.right_side.postUpdate();
+      if (this.game.speed < 0) {
+        blk.preUpdate();
+        blk.postUpdate();
+        blk.right_side.preUpdate();
+        blk.right_side.postUpdate();
+      }
       this.events.onOutOfBounds.removeAll();
       return setTimeout(function() {
         _this.right_side.destroy();

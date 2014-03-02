@@ -2,7 +2,7 @@
 var PlayerController;
 
 PlayerController = (function() {
-  PlayerController.prototype.movespeed = 500;
+  PlayerController.prototype.movespeed = 450;
 
   function PlayerController(player, game) {
     this.player = player;
@@ -12,9 +12,9 @@ PlayerController = (function() {
 
   PlayerController.prototype.update = function() {
     this.player.body.velocity.x = 0;
-    if (this.cursors.left.isDown && this.player.x > (Block.block_width + 50)) {
+    if ((this.game.input.x < this.player.x - 10) && this.player.x > (Block.block_width + 50)) {
       return this.player.body.velocity.x = -1 * this.movespeed;
-    } else if (this.cursors.right.isDown && this.player.x < (this.game.world.width - Block.block_width - 50)) {
+    } else if ((this.game.input.x > this.player.x + 10) && this.player.x < (this.game.world.width - Block.block_width - 50)) {
       return this.player.body.velocity.x = this.movespeed;
     }
   };

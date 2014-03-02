@@ -19,7 +19,7 @@ class Player extends Phaser.Sprite
 
     getPower: (power)->
         @power+= power
-        console.log @power
+        #console.log @power
         # if @power >= 100
         #     @game.speed = 200
 

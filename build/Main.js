@@ -9,43 +9,66 @@ Main = (function(_super) {
 
   function Main() {
     this.die = __bind(this.die, this);
+    this.increaseSpeed = __bind(this.increaseSpeed, this);
     Main.__super__.constructor.apply(this, arguments);
   }
 
   Main.prototype.preload = function() {
+    this.game.load.image('backdrop', 'assets/Backdrop.png');
     this.game.load.image('player', 'assets/Player.png');
-    this.game.load.image('block', 'assets/Block.png');
-    return this.game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json');
+    this.game.load.spritesheet('block', 'assets/Block.png', 128, 80);
+    this.game.load.image('logo2', 'assets/Logo.png');
+    this.game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json');
+    return this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 188, 337);
   };
 
   Main.prototype.create = function() {
-    var block_placement_y, i, init_blocks, _i, _ref, _results;
-    this.game.stage.backgroundColor = '#787878';
+    var block_placement_y, i, init_blocks, logo, _i, _ref,
+      _this = this;
+    this.game.add.sprite(0, 0, 'backdrop');
     this.player = new Player(this.game);
     this.game.add.existing(this.player);
     this.game.player = this.player;
-    this.obstacles = new ObstacleManager(this.game);
     this.sides = this.game.add.group();
-    this.game.speed = -400;
+    this.obstacles = new ObstacleManager(this.game);
+    this.game.speed = -550;
+    logo = this.game.add.sprite(40, this.game.world.height + 800, 'logo2');
+    logo.body.velocity.y = this.game.speed;
+    logo.events.onOutOfBounds.add(function() {
+      if (logo.y < 0) {
+        logo.events.onOutOfBounds.removeAll();
+        setTimeout(function() {
+          return logo.destroy();
+        }, 50);
+        return _this.obstacles.initializeTimers();
+      }
+    });
     init_blocks = this.game.world.height / Block.block_height;
     block_placement_y = 0;
-    _results = [];
     for (i = _i = 0, _ref = Math.ceil(init_blocks); 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
       new Block(this.sides, 0, block_placement_y);
-      _results.push(block_placement_y += Block.block_height);
+      block_placement_y += Block.block_height;
     }
-    return _results;
+    return this.speedTimer = this.game.time.events.loop(2000, this.increaseSpeed);
   };
 
   Main.prototype.update = function() {
     return this.game.physics.collide(this.player, this.obstacles, this.die);
   };
 
+  Main.prototype.increaseSpeed = function() {
+    this.game.speed -= 25;
+    if (Math.abs(this.game.speed) > 900) {
+      return this.game.time.events.remove(this.speedTimer);
+    }
+  };
+
   Main.prototype.render = function() {
     var _this = this;
-    return this.obstacles.forEachAlive(function(elem) {
+    this.obstacles.forEachAlive(function(elem) {
       return _this.game.debug.renderPhysicsBody(elem.body);
     });
+    return this.game.debug.renderPhysicsBody(this.player.body);
   };
 
   Main.prototype.die = function() {

@@ -146,8 +146,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Neon2.png</filename>
-            <filename>Neon1.png</filename>
+            <filename>Falling-Kata.png</filename>
+            <filename>TohaHeavy-Ind.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -1,12 +1,17 @@
 
 
-class NeonSign extends FixedObstacle
+class NeonArrow extends NeonSign
 
 
     init: ()->
         super()
-        offset = 30*@scale.x
-        @body.setRectangle(@width-offset, @height-offset, offset/2, offset/2)
+
+        @animations.add('glow', [0,1,1,2,2,2,2])
+        @animations.play('glow', 10, true);
+
+
+    getSheet: ()->
+        return "glow-arrow"
 
 
     update: ()->
@@ -16,6 +21,6 @@ class NeonSign extends FixedObstacle
 
 
     getSheetFrames : ()->
-        return [0..1]
+        return [0]
 
 

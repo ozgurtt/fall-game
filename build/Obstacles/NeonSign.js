@@ -11,6 +11,13 @@ NeonSign = (function(_super) {
     return _ref;
   }
 
+  NeonSign.prototype.init = function() {
+    var offset;
+    NeonSign.__super__.init.call(this);
+    offset = 30 * this.scale.x;
+    return this.body.setRectangle(this.width - offset, this.height - offset, offset / 2, offset / 2);
+  };
+
   NeonSign.prototype.update = function() {
     var dist;
     dist = this.game.physics.distanceBetween(this, this.game.player);
@@ -21,10 +28,6 @@ NeonSign = (function(_super) {
 
   NeonSign.prototype.getSheetFrames = function() {
     return [0, 1];
-  };
-
-  NeonSign.prototype.getSide = function() {
-    return Block.block_width;
   };
 
   return NeonSign;

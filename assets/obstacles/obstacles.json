@@ -1,28 +1,28 @@
 {"frames": [
 
 {
-	"filename": "Neon1.png",
-	"frame": {"x":2,"y":2,"w":192,"h":190},
+	"filename": "Falling-Kata.png",
+	"frame": {"x":2,"y":2,"w":153,"h":400},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":190},
-	"sourceSize": {"w":192,"h":190}
+	"spriteSourceSize": {"x":0,"y":0,"w":153,"h":400},
+	"sourceSize": {"w":153,"h":400}
 },
 {
-	"filename": "Neon2.png",
-	"frame": {"x":2,"y":194,"w":192,"h":194},
+	"filename": "TohaHeavy-Ind.png",
+	"frame": {"x":157,"y":2,"w":250,"h":145},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":194},
-	"sourceSize": {"w":192,"h":194}
+	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":145},
+	"sourceSize": {"w":250,"h":145}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "obstacles.png",
 	"format": "RGBA8888",
-	"size": {"w":256,"h":512},
+	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:43f1466a7eca6c0fda7e7071846875a0$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4bdabc7d6fa03076b8b03f9052b9e6c6$"
 }
 }
