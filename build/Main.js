@@ -20,23 +20,30 @@ Main = (function(_super) {
     this.game.load.spritesheet('player', 'assets/Player.png', 32, 48);
     this.game.load.image('logo2', 'assets/Logo.png');
     this.game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json');
-    this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201);
-    return this.game.load.script('filter', 'filters/Fire.js');
+    return this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201);
   };
 
   Main.prototype.create = function() {
-    var backdrop, bg, block_placement_y, i, init_blocks, logo, style, _i, _ref,
-      _this = this;
+    var backdrop, style;
     backdrop = this.game.add.sprite(0, 0, 'backdrop');
     this.game.blocks_passed = 0;
-    bg = this.game.add.sprite(0, 0);
-    bg.width = 600;
-    bg.height = 700;
-    this.filter = this.game.add.filter('Fire', 600, 700);
-    this.filter.alpha = 0.0;
+    this.started = false;
+    style = {
+      font: "20px Arial",
+      fill: "#65dfff",
+      align: "left"
+    };
     this.player = new Player(this.game);
+    this.player.visible = false;
     this.game.add.existing(this.player);
     this.game.player = this.player;
+    return this.startText = this.game.add.text(5, 10, "In the year 20XX, corporations control the world's governments.\n" + "You are a member of a covert resistance who aims to topple\n" + "the corrupt corporate government by crippling their infrastructure.\n" + "\n" + "You broke into a corporate headquarter at the top of a super\n" + "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" + "Unfortunately, you were spotted by security and had to improvise \n" + "an escape plan.\n" + "\n" + "Unfortunately, you aren't good at improvising.\n\n\n\n\n" + "Press ENTER to begin", style);
+  };
+
+  Main.prototype.startGame = function() {
+    var block_placement_y, i, init_blocks, logo, style, _i, _ref,
+      _this = this;
+    this.player.visible = true;
     this.sides = this.game.add.group();
     this.obstacles = new ObstacleManager(this.game);
     this.game.speed = -550;
@@ -64,15 +71,24 @@ Main = (function(_super) {
       fill: "#65dfff",
       align: "left"
     };
-    return this.score_text = this.game.add.text(25, 17, "0", style);
+    this.score_text = this.game.add.text(25, 17, "0", style);
+    return this.started = true;
   };
 
   Main.prototype.update = function() {
     var speed;
-    this.game.physics.collide(this.player, this.obstacles, this.die);
-    this.filter.update();
-    speed = (this.game.blocks_passed * 12) / (this.game.time.time / 1000);
-    return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
+    if (!this.started) {
+      if (this.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
+        console.log("BLAREUH");
+        this.startText.destroy();
+        this.startGame();
+        return console.log(this.player.y);
+      }
+    } else {
+      this.game.physics.collide(this.player, this.obstacles, this.die);
+      speed = (this.game.blocks_passed * 12) / (this.game.time.time / 1000);
+      return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
+    }
   };
 
   Main.prototype.increaseSpeed = function() {
@@ -82,16 +98,8 @@ Main = (function(_super) {
     }
   };
 
-  Main.prototype.render = function() {
-    var _this = this;
-    this.obstacles.forEachAlive(function(elem) {
-      return _this.game.debug.renderPhysicsBody(elem.body);
-    });
-    return this.game.debug.renderPhysicsBody(this.player.body);
-  };
-
   Main.prototype.die = function() {
-    return this.player.destroy();
+    return this.player.killed = true;
   };
 
   return Main;

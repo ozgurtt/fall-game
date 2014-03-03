@@ -15,7 +15,8 @@ NeonSign = (function(_super) {
     var offset;
     NeonSign.__super__.init.call(this);
     offset = 30 * this.scale.x;
-    return this.body.setRectangle(this.width - offset, this.height - offset, offset / 2, offset / 2);
+    this.body.setRectangle(this.width - offset, this.height - offset, offset / 2, offset / 2);
+    return this.body.immovable = true;
   };
 
   NeonSign.prototype.update = function() {

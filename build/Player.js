@@ -14,6 +14,7 @@ Player = (function(_super) {
     var x, y;
     x = game.world.centerX;
     y = game.world.centerY - 200;
+    console.log(y);
     Player.__super__.constructor.call(this, game, x, y, 'player', 1);
     this.anchor.setTo(0.5, 0.5);
     this.controller = new PlayerController(this, game);

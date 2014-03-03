@@ -12,6 +12,13 @@ PlayerController = (function() {
 
   PlayerController.prototype.update = function() {
     var speed;
+    if (this.player.killed === true) {
+      this.player.body.velocity.y = this.player.game.speed;
+      return;
+    }
+    if (this.player.game.started === false) {
+      return;
+    }
     this.player.body.velocity.x = 0;
     speed = this.movespeed;
     if (this.game.input.x + 7 > this.player.x && this.game.input.x - 7 < this.player.x) {

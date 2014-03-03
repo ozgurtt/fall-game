@@ -12,27 +12,41 @@ class Main extends Phaser.State
         @game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json')
         @game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201)
 
-        @game.load.script('filter', 'filters/Fire.js');
 
 
     create: ()->
         backdrop = @game.add.sprite(0, 0,'backdrop')
 
         @game.blocks_passed = 0
+        @started = false
 
-        # Backdrop?!
-        bg = @game.add.sprite(0,0)
-        bg.width = 600
-        bg.height = 700
-        @filter = @game.add.filter('Fire', 600, 700)
-        @filter.alpha = 0.0
-        #bg.filters = [@filter]
+        style = { font: "20px Arial", fill: "#65dfff", align: "left" };
+
 
         @player = new Player(@game)
-
+        @player.visible = false
         @game.add.existing(@player)
         @game.player = @player
 
+
+        @startText = @game.add.text(5, 10,
+            "In the year 20XX, corporations control the world's governments.\n" +
+            "You are a member of a covert resistance who aims to topple\n" +
+            "the corrupt corporate government by crippling their infrastructure.\n" +
+            "\n" +
+            "You broke into a corporate headquarter at the top of a super\n" +
+            "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" +
+            "Unfortunately, you were spotted by security and had to improvise \n" +
+            "an escape plan.\n" +
+            "\n" +
+            "Unfortunately, you aren't good at improvising.\n\n\n\n\n"+
+            "Press ENTER to begin" , style);
+
+
+
+
+    startGame: ()->
+        @player.visible = true
         @sides = @game.add.group()
         @obstacles = new ObstacleManager(@game)
         #@obstacles = @game.add.group()
@@ -69,15 +83,23 @@ class Main extends Phaser.State
         style = { font: "19px Arial", fill: "#65dfff", align: "left" };
 
         @score_text = @game.add.text(25, 17, "0", style);
+        @started = true
 
 
     update: ()->
-        @game.physics.collide(@player, @obstacles, @die)
-        @filter.update()
+        if not @started
+            if @input.keyboard.justPressed(Phaser.Keyboard.ENTER)
+                console.log "BLAREUH"
+                @startText.destroy()
+                @startGame()
+                console.log @player.y
 
-        speed = ((@game.blocks_passed*12)/(@game.time.time/1000))
-        @score_text.content = @game.blocks_passed + " stories\n" +
-            speed.toFixed(1)+" ft/s"
+        else
+            @game.physics.collide(@player, @obstacles, @die)
+
+            speed = ((@game.blocks_passed*12)/(@game.time.time/1000))
+            @score_text.content = @game.blocks_passed + " stories\n" +
+                speed.toFixed(1)+" ft/s"
 
 
 
@@ -87,15 +109,16 @@ class Main extends Phaser.State
             @game.time.events.remove(@speedTimer)
 
 
-    render: ()->
-        @obstacles.forEachAlive (elem)=>
-            @game.debug.renderPhysicsBody(elem.body)
+    # render: ()->
+    #     @obstacles.forEachAlive (elem)=>
+    #         @game.debug.renderPhysicsBody(elem.body)
 
-        @game.debug.renderPhysicsBody(@player.body)
+    #     @game.debug.renderPhysicsBody(@player.body)
 
 
     die: ()=>
-        @player.destroy()
+        @player.killed = true
+        #@player.destroy()
         # @game.pause()
 
 

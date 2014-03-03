@@ -11,6 +11,11 @@ class PlayerController
 
 
     update: ()->
+        if @player.killed == true
+            @player.body.velocity.y = @player.game.speed
+            return
+        if @player.game.started is false
+            return
 
         @player.body.velocity.x = 0
         speed = @movespeed

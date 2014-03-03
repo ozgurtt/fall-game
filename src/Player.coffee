@@ -8,6 +8,7 @@ class Player extends Phaser.Sprite
 
         x = game.world.centerX
         y = game.world.centerY - 200
+        console.log y
 
         super(game, x, y, 'player', 1)
         @anchor.setTo(0.5, 0.5)

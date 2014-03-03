@@ -7,6 +7,7 @@ class NeonSign extends FixedObstacle
         super()
         offset = 30*@scale.x
         @body.setRectangle(@width-offset, @height-offset, offset/2, offset/2)
+        @body.immovable = true
 
 
 
