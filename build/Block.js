@@ -80,9 +80,10 @@ Block = (function(_super) {
       }
       this.events.onOutOfBounds.removeAll();
       return setTimeout(function() {
+        _this.game.blocks_passed++;
         _this.right_side.destroy();
         return _this.destroy();
-      }, 250);
+      }, 20);
     }
   };
 

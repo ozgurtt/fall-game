@@ -73,10 +73,11 @@ class Block extends Phaser.Sprite
             @events.onOutOfBounds.removeAll()
 
             setTimeout ()=>
+                @game.blocks_passed++
                 @right_side.destroy()
                 @destroy()
 
-            , 250
+            , 20
 
 
 

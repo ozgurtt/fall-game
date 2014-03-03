@@ -14,9 +14,10 @@ Main = (function(_super) {
   }
 
   Main.prototype.preload = function() {
+    this.game.load.image('scoreframe', 'assets/ScoreFrame.png');
     this.game.load.image('backdrop', 'assets/Backdrop.png');
-    this.game.load.image('player', 'assets/Player.png');
     this.game.load.spritesheet('block', 'assets/Block.png', 128, 80);
+    this.game.load.spritesheet('player', 'assets/Player.png', 32, 48);
     this.game.load.image('logo2', 'assets/Logo.png');
     this.game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json');
     this.game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201);
@@ -24,9 +25,10 @@ Main = (function(_super) {
   };
 
   Main.prototype.create = function() {
-    var backdrop, bg, block_placement_y, i, init_blocks, logo, _i, _ref,
+    var backdrop, bg, block_placement_y, i, init_blocks, logo, style, _i, _ref,
       _this = this;
     backdrop = this.game.add.sprite(0, 0, 'backdrop');
+    this.game.blocks_passed = 0;
     bg = this.game.add.sprite(0, 0);
     bg.width = 600;
     bg.height = 700;
@@ -55,17 +57,27 @@ Main = (function(_super) {
       new Block(this.sides, 0, block_placement_y);
       block_placement_y += Block.block_height;
     }
-    return this.speedTimer = this.game.time.events.loop(2000, this.increaseSpeed);
+    this.speedTimer = this.game.time.events.loop(2000, this.increaseSpeed);
+    this.game.add.sprite(0, 0, 'scoreframe');
+    style = {
+      font: "19px Arial",
+      fill: "#65dfff",
+      align: "left"
+    };
+    return this.score_text = this.game.add.text(25, 17, "0", style);
   };
 
   Main.prototype.update = function() {
+    var speed;
     this.game.physics.collide(this.player, this.obstacles, this.die);
-    return this.filter.update();
+    this.filter.update();
+    speed = (this.game.blocks_passed * 12) / (this.game.time.time / 1000);
+    return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
   };
 
   Main.prototype.increaseSpeed = function() {
     this.game.speed -= 25;
-    if (Math.abs(this.game.speed) > 900) {
+    if (Math.abs(this.game.speed) > 1000) {
       return this.game.time.events.remove(this.speedTimer);
     }
   };

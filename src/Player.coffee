@@ -1,7 +1,7 @@
 
 class Player extends Phaser.Sprite
 
-    @player_width: 64
+    @player_width: 32
     power: 0
 
     constructor: (game)->
@@ -9,10 +9,14 @@ class Player extends Phaser.Sprite
         x = game.world.centerX
         y = game.world.centerY - 200
 
-        super(game, x, y, 'player')
+        super(game, x, y, 'player', 1)
         @anchor.setTo(0.5, 0.5)
         @controller = new PlayerController(@, game)
 
+        @body.setRectangle(@width-4, @height-4, 2, 2)
+
+        @animations.add('fall')
+        @animations.play('fall', 5, true)
 
         return @
 

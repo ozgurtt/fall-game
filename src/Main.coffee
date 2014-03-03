@@ -4,9 +4,10 @@ class Main extends Phaser.State
     constructor: -> super
 
     preload : ()->
+        @game.load.image('scoreframe', 'assets/ScoreFrame.png')
         @game.load.image('backdrop', 'assets/Backdrop.png')
-        @game.load.image('player', 'assets/Player.png');
         @game.load.spritesheet('block', 'assets/Block.png', 128, 80);
+        @game.load.spritesheet('player', 'assets/Player.png', 32, 48);
         @game.load.image('logo2', 'assets/Logo.png')
         @game.load.atlas('obstacles', 'assets/obstacles/obstacles.png', 'assets/obstacles/obstacles.json')
         @game.load.spritesheet('glow-arrow', 'assets/obstacles/GlowArrow.png', 112, 201)
@@ -15,7 +16,9 @@ class Main extends Phaser.State
 
 
     create: ()->
-        backdrop = @game.add.sprite(0,0,'backdrop')
+        backdrop = @game.add.sprite(0, 0,'backdrop')
+
+        @game.blocks_passed = 0
 
         # Backdrop?!
         bg = @game.add.sprite(0,0)
@@ -62,15 +65,25 @@ class Main extends Phaser.State
         @speedTimer = @game.time.events.loop(2000, @increaseSpeed)
 
 
+        @game.add.sprite(0, 0, 'scoreframe')
+        style = { font: "19px Arial", fill: "#65dfff", align: "left" };
+
+        @score_text = @game.add.text(25, 17, "0", style);
+
+
     update: ()->
         @game.physics.collide(@player, @obstacles, @die)
         @filter.update()
+
+        speed = ((@game.blocks_passed*12)/(@game.time.time/1000))
+        @score_text.content = @game.blocks_passed + " stories\n" +
+            speed.toFixed(1)+" ft/s"
 
 
 
     increaseSpeed: ()=>
         @game.speed -= 25
-        if Math.abs(@game.speed) > 900
+        if Math.abs(@game.speed) > 1000
             @game.time.events.remove(@speedTimer)
 
 
