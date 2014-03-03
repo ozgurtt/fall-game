@@ -10,6 +10,7 @@ Main = (function(_super) {
   function Main() {
     this.die = __bind(this.die, this);
     this.increaseSpeed = __bind(this.increaseSpeed, this);
+    this.startGame = __bind(this.startGame, this);
     Main.__super__.constructor.apply(this, arguments);
   }
 
@@ -37,12 +38,14 @@ Main = (function(_super) {
     this.player.visible = false;
     this.game.add.existing(this.player);
     this.game.player = this.player;
-    return this.startText = this.game.add.text(5, 10, "In the year 20XX, corporations control the world's government.\n" + "You are a member of a covert resistance who aims to topple\n" + "the corrupt corporate government.\n" + "\n" + "You broke into a corporate headquarter at the top of a super\n" + "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" + "Unfortunately, you were spotted by security and had to improvise \n" + "an escape plan.\n" + "\n" + "Unfortunately, you aren't good at improvising.\n\n\n\n\n" + "Press ENTER to begin", style);
+    this.startText = this.game.add.text(5, 10, "In the year 20XX, corporations control the world's government.\n" + "You are a member of a covert resistance who aims to topple\n" + "the corrupt corporate government.\n" + "\n" + "You broke into a corporate headquarter at the top of a super\n" + "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" + "Unfortunately, you were spotted by security and had to improvise \n" + "an escape plan.\n" + "\n" + "Unfortunately, you aren't good at improvising.\n\n\n\n\n" + "Click to begin", style);
+    return this.game.input.onTap.addOnce(this.startGame);
   };
 
   Main.prototype.startGame = function() {
     var block_placement_y, i, init_blocks, logo, style, _i, _ref,
       _this = this;
+    this.startText.destroy();
     this.player.visible = true;
     this.sides = this.game.add.group();
     this.obstacles = new ObstacleManager(this.game);
@@ -77,12 +80,7 @@ Main = (function(_super) {
 
   Main.prototype.update = function() {
     var speed;
-    if (!this.started) {
-      if (this.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
-        this.startText.destroy();
-        return this.startGame();
-      }
-    } else {
+    if (this.started) {
       this.game.physics.collide(this.player, this.obstacles, this.die);
       speed = (this.game.blocks_passed * 12) / (this.game.time.time / 1000);
       return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
@@ -97,15 +95,22 @@ Main = (function(_super) {
   };
 
   Main.prototype.die = function(ob1, ob2) {
-    var style;
+    var style,
+      _this = this;
+    setTimeout(function() {
+      return ob2.body.velocity.y = _this.game.speed;
+    }, 20);
     if (!this.player.killed) {
       this.player.killed = true;
       style = {
         font: "30px Arial",
         fill: "#65dfff",
-        align: "left"
+        align: "center"
       };
-      return this.game.add.text(135, this.game.world.centerY, "Ouch. You fell " + this.game.blocks_passed + " stories", style);
+      this.game.add.text(135, this.game.world.centerY, "Ouch. You fell " + this.game.blocks_passed + " stories\n Click to restart", style);
+      return this.game.input.onTap.addOnce(function() {
+        return location.reload();
+      });
     }
   };
 

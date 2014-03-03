@@ -40,12 +40,15 @@ class Main extends Phaser.State
             "an escape plan.\n" +
             "\n" +
             "Unfortunately, you aren't good at improvising.\n\n\n\n\n"+
-            "Press ENTER to begin" , style);
+            "Click to begin" , style);
+
+        @game.input.onTap.addOnce(@startGame)
 
 
 
+    startGame: ()=>
+        @startText.destroy()
 
-    startGame: ()->
         @player.visible = true
         @sides = @game.add.group()
         @obstacles = new ObstacleManager(@game)
@@ -87,12 +90,7 @@ class Main extends Phaser.State
 
 
     update: ()->
-        if not @started
-            if @input.keyboard.justPressed(Phaser.Keyboard.ENTER)
-                @startText.destroy()
-                @startGame()
-
-        else
+        if @started
             @game.physics.collide(@player, @obstacles, @die)
 
             speed = ((@game.blocks_passed*12)/(@game.time.time/1000))
@@ -115,12 +113,22 @@ class Main extends Phaser.State
 
 
     die: (ob1, ob2)=>
+        setTimeout ()=>
+            ob2.body.velocity.y = @game.speed
+        , 20
+
         if not @player.killed
             @player.killed = true
 
-            style = { font: "30px Arial", fill: "#65dfff", align: "left" };
+            style = { font: "30px Arial", fill: "#65dfff", align: "center" };
 
-            @game.add.text(135, @game.world.centerY, "Ouch. You fell #{@game.blocks_passed} stories", style)
+            @game.add.text(135, @game.world.centerY, "Ouch. You fell #{@game.blocks_passed} stories\n Click to restart", style)
+
+
+            @game.input.onTap.addOnce ()->
+                location.reload()
+
+
 
 
 
