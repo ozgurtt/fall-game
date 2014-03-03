@@ -34,12 +34,12 @@ class Main extends Phaser.State
             "You are a member of a covert resistance who aims to topple\n" +
             "the corrupt corporate government.\n" +
             "\n" +
-            "You broke into a corporate headquarter at the top of a super\n" +
+            "You broke into the corporate headquarters at the top of a super\n" +
             "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" +
             "Unfortunately, you were spotted by security and had to improvise \n" +
             "an escape plan.\n" +
             "\n" +
-            "Unfortunately, you aren't good at improvising.\n\n\n\n\n"+
+            "Unfortunately, you aren't very good at improvising.\n\n\n\n\n"+
             "Click to begin" , style);
 
         @game.input.onTap.addOnce(@startGame)
