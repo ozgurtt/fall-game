@@ -89,10 +89,8 @@ class Main extends Phaser.State
     update: ()->
         if not @started
             if @input.keyboard.justPressed(Phaser.Keyboard.ENTER)
-                console.log "BLAREUH"
                 @startText.destroy()
                 @startGame()
-                console.log @player.y
 
         else
             @game.physics.collide(@player, @obstacles, @die)
@@ -116,10 +114,13 @@ class Main extends Phaser.State
     #     @game.debug.renderPhysicsBody(@player.body)
 
 
-    die: ()=>
-        @player.killed = true
-        #@player.destroy()
-        # @game.pause()
+    die: (ob1, ob2)=>
+        if not @player.killed
+            @player.killed = true
+
+            style = { font: "30px Arial", fill: "#65dfff", align: "left" };
+
+            @game.add.text(135, @game.world.centerY, "Ouch. You fell #{@game.blocks_passed} stories", style)
 
 
 

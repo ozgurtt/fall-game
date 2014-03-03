@@ -79,10 +79,8 @@ Main = (function(_super) {
     var speed;
     if (!this.started) {
       if (this.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
-        console.log("BLAREUH");
         this.startText.destroy();
-        this.startGame();
-        return console.log(this.player.y);
+        return this.startGame();
       }
     } else {
       this.game.physics.collide(this.player, this.obstacles, this.die);
@@ -98,8 +96,17 @@ Main = (function(_super) {
     }
   };
 
-  Main.prototype.die = function() {
-    return this.player.killed = true;
+  Main.prototype.die = function(ob1, ob2) {
+    var style;
+    if (!this.player.killed) {
+      this.player.killed = true;
+      style = {
+        font: "30px Arial",
+        fill: "#65dfff",
+        align: "left"
+      };
+      return this.game.add.text(135, this.game.world.centerY, "Ouch. You fell " + this.game.blocks_passed + " stories", style);
+    }
   };
 
   return Main;
