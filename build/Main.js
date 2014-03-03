@@ -37,7 +37,7 @@ Main = (function(_super) {
     this.player.visible = false;
     this.game.add.existing(this.player);
     this.game.player = this.player;
-    return this.startText = this.game.add.text(5, 10, "In the year 20XX, corporations control the world's governments.\n" + "You are a member of a covert resistance who aims to topple\n" + "the corrupt corporate government by crippling their infrastructure.\n" + "\n" + "You broke into a corporate headquarter at the top of a super\n" + "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" + "Unfortunately, you were spotted by security and had to improvise \n" + "an escape plan.\n" + "\n" + "Unfortunately, you aren't good at improvising.\n\n\n\n\n" + "Press ENTER to begin", style);
+    return this.startText = this.game.add.text(5, 10, "In the year 20XX, corporations control the world's government.\n" + "You are a member of a covert resistance who aims to topple\n" + "the corrupt corporate government.\n" + "\n" + "You broke into a corporate headquarter at the top of a super\n" + "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" + "Unfortunately, you were spotted by security and had to improvise \n" + "an escape plan.\n" + "\n" + "Unfortunately, you aren't good at improvising.\n\n\n\n\n" + "Press ENTER to begin", style);
   };
 
   Main.prototype.startGame = function() {

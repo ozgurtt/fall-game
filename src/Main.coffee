@@ -30,9 +30,9 @@ class Main extends Phaser.State
 
 
         @startText = @game.add.text(5, 10,
-            "In the year 20XX, corporations control the world's governments.\n" +
+            "In the year 20XX, corporations control the world's government.\n" +
             "You are a member of a covert resistance who aims to topple\n" +
-            "the corrupt corporate government by crippling their infrastructure.\n" +
+            "the corrupt corporate government.\n" +
             "\n" +
             "You broke into a corporate headquarter at the top of a super\n" +
             "skyscraper and planted a virus that would destroy Civil Surveillance.\n\n\n\n" +
