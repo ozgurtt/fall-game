@@ -47,6 +47,8 @@ class Main extends Phaser.State
 
 
     startGame: ()=>
+
+        @startTime = @game.time.time
         @startText.destroy()
 
         @player.visible = true
@@ -91,17 +93,17 @@ class Main extends Phaser.State
 
     update: ()->
         if @started
-            @game.physics.collide(@player, @obstacles, @die)
+            #@game.physics.collide(@player, @obstacles, @die)
 
-            speed = ((@game.blocks_passed*12)/(@game.time.time/1000))
+            speed = ((@game.blocks_passed*12)/((@game.time.time-@startTime)/1000))
             @score_text.content = @game.blocks_passed + " stories\n" +
                 speed.toFixed(1)+" ft/s"
 
 
 
     increaseSpeed: ()=>
-        @game.speed -= 25
-        if Math.abs(@game.speed) > 1000
+        @game.speed -= 35
+        if Math.abs(@game.speed) > 3000
             @game.time.events.remove(@speedTimer)
 
 

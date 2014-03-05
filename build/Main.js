@@ -45,6 +45,7 @@ Main = (function(_super) {
   Main.prototype.startGame = function() {
     var block_placement_y, i, init_blocks, logo, style, _i, _ref,
       _this = this;
+    this.startTime = this.game.time.time;
     this.startText.destroy();
     this.player.visible = true;
     this.sides = this.game.add.group();
@@ -81,15 +82,14 @@ Main = (function(_super) {
   Main.prototype.update = function() {
     var speed;
     if (this.started) {
-      this.game.physics.collide(this.player, this.obstacles, this.die);
-      speed = (this.game.blocks_passed * 12) / (this.game.time.time / 1000);
+      speed = (this.game.blocks_passed * 12) / ((this.game.time.time - this.startTime) / 1000);
       return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
     }
   };
 
   Main.prototype.increaseSpeed = function() {
-    this.game.speed -= 25;
-    if (Math.abs(this.game.speed) > 1000) {
+    this.game.speed -= 35;
+    if (Math.abs(this.game.speed) > 3000) {
       return this.game.time.events.remove(this.speedTimer);
     }
   };
