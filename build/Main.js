@@ -82,6 +82,7 @@ Main = (function(_super) {
   Main.prototype.update = function() {
     var speed;
     if (this.started) {
+      this.game.physics.collide(this.player, this.obstacles, this.die);
       speed = (this.game.blocks_passed * 12) / ((this.game.time.time - this.startTime) / 1000);
       return this.score_text.content = this.game.blocks_passed + " stories\n" + speed.toFixed(1) + " ft/s";
     }

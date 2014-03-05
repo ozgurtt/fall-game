@@ -93,7 +93,7 @@ class Main extends Phaser.State
 
     update: ()->
         if @started
-            #@game.physics.collide(@player, @obstacles, @die)
+            @game.physics.collide(@player, @obstacles, @die)
 
             speed = ((@game.blocks_passed*12)/((@game.time.time-@startTime)/1000))
             @score_text.content = @game.blocks_passed + " stories\n" +
